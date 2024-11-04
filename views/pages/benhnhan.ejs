@@ -27,8 +27,9 @@
                                     </div>
                                 </div>
                                 <div class="row p-3">
-                                    <p>Nhịp Tim Trung Bình:  <span> 150mp </span></p>
-                                    <p class="ml-4">Nồng độ oxi trong máu:  <span> 150mp </span></p>
+                                    <% console.log("connected") %>
+                                    <p>Nhịp Tim Trung Bình:  <span id="heartRate"> <%= hearth %></span></p>
+                                    <p class="ml-4">Nồng độ oxi trong máu:  <span id="spo2"> <%= spo2s %> </span></p>
                                     <p class="ml-4">Huyết áp trung bình:  <span> 150mp </span></p>
                                 </div>
                             </div>
@@ -55,7 +56,67 @@
                     </div>
                 </div>
         </section> <!--/ End Contact -->
+        <!-- <script>
+            const heartRateCtx = document.getElementById('myChart').getContext('2d');
+            const spo2Ctx = document.getElementById('spo2Chart').getContext('2d');
+            const heartRateElement = document.getElementById("heartRate");
+            const spo2Element = document.getElementById("spo2");
 
+            const heartRateData = {
+                labels: [],
+                datasets: [{
+                    label: 'Heart Rate (bpm)',
+                    data: [],
+                    borderColor: 'rgb(255, 99, 132)',
+                    fill: false,
+                }]
+            };
+    
+            const spo2Data = {
+                labels: [],
+                datasets: [{
+                    label: 'SpO2 (%)',
+                    data: [],
+                    borderColor: 'rgb(54, 162, 235)',
+                    fill: false,
+                }]
+            };
+    
+            const heartRateChart = new Chart(heartRateCtx, {
+                type: 'line',
+                data: heartRateData,
+                options: { responsive: true }
+            });
+    
+            const spo2Chart = new Chart(spo2Ctx, {
+                type: 'line',
+                data: spo2Data,
+                options: { responsive: true }
+            });
+    
+            const ws = new WebSocket('ws://localhost:2222/ws');
+    
+            ws.onmessage = (event) => {
+                const data = JSON.parse(event.data);
+                const time = new Date(data.timestamp).toLocaleTimeString();
+                heartRateElement.textContent = `${data.heartRate} bpm`;
+                spo2Element.textContent = `${data.spo2} %`;
+                if (heartRateData.labels.length > 20) {
+                    heartRateData.labels.shift();
+                    heartRateData.datasets[0].data.shift();
+                    spo2Data.labels.shift();
+                    spo2Data.datasets[0].data.shift();
+                }
+    
+                heartRateData.labels.push(time);
+                heartRateData.datasets[0].data.push(data.heartRate);
+                spo2Data.labels.push(time);
+                spo2Data.datasets[0].data.push(data.spo2);
+    
+                heartRateChart.update();
+                spo2Chart.update();
+            };
+        </script> -->
         <%-include('../common/js.ejs')%>
             <!-- Jquery -->
 </body>
