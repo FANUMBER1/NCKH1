@@ -2,123 +2,161 @@
 <html lang="zxx">
 
 <head>
-    <%-include('../common/css.ejs')%>
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <%- include('../common/css.ejs') %>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body class="js">
     <!-- Header -->
-    <%-include('../common/header.ejs')%>
-        <!--/ End Header -->
+    <%- include('../common/header.ejs') %>
+    <!--/ End Header -->
 
-        <!-- Start Contact -->
-        <section class="shop single section">
-            <div class="">
-                <div class="row m-3">
-                    <div class="col-12">
-                        <div class="row">
-                            <div class="col-lg-7 col-7 border border-right-dark">
-                                <div class="row p-3  ">
-                                      <div class="col-lg-3">
-                                        <img class="default-img" src="https://via.placeholder.com/550x750">
-                                      </div>
-                                      <div class="col-lg-9">
-                                        <canvas id="myChart" width="20px" height="10px"></canvas>
-                                    </div>
+    <!-- Start Contact -->
+    <section class="shop single section">
+        <div class="">
+            <div class="row m-3">
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-lg-7 col-7 border border-right-dark">
+                            <div class="row p-3">
+                                <div class="col-lg-3">
+                                    <img class="default-img" src="https://via.placeholder.com/550x750">
                                 </div>
-                                <div class="row p-3">
-                                    <% console.log("connected") %>
-                                    <p>Nhịp Tim Trung Bình:  <span id="heartRate"> <%= hearth %></span></p>
-                                    <p class="ml-4">Nồng độ oxi trong máu:  <span id="spo2"> <%= spo2s %> </span></p>
-                                    <p class="ml-4">Huyết áp trung bình:  <span> 150mp </span></p>
+                                <div class="col-lg-9">
+                                    <canvas id="myChart" width="20px" height="10px"></canvas>
                                 </div>
                             </div>
-                            <div class="col-lg-5 col-5  border border-right-dark">
-                                <div class="row mt-4 justify-content-center">
-                                        <h5>Tên Bệnh Nhân</h5>
-                                </div>
-                                <div class="total-amount">
+                            <div class="row p-3">
+                                <p>Nhịp Tim Trung Bình: <span id="heartRate"> </span></p>
+                                <p class="ml-4">Nồng độ oxi trong máu: <span id="spo2"> </span></p>
+                                <p id="bloodPressureWarning" class="ml-4" style="color: red; display: none;">Huyết áp cao</p>
+                            </div>
+                        </div>
+                        <!-- Thông tin bệnh nhân bên phải -->
+                        <div class="col-lg-5 col-5 border border-right-dark">
+                            <div class="row mt-4 justify-content-center">
+                                <h5>Tên Bệnh Nhân</h5>
+                            </div>
+                            <div class="total-amount">
                                 <div class="row p-3">
-                                    <h6 class="col-5 p-2">Họ tên:</h6><p class="col-7 p-2">Nguyen Van A</p>
-                                    <h6 class="col-5 p-2">Địa chỉ:</h6><p class="col-7 p-2">Nguyen Van A</p>
-                                    <h6 class="col-5 p-2">Số điện thoại:</h6><p class="col-7 p-2">Nguyen Van A</p>
-                                    <h6 class="col-5 p-2">Người Phụ Trách:</h6><p class="col-7 p-2">Nguyen Van A</p>
-                                    <h6 class="col-5 p-2">Tình Trạng Bệnh</h6><p class="col-7 p-2">Nguyen Van A</p>
-                                    <h6 class="col-5 p-2">Phòng Bệnh:</h6><p class="col-7 p-2">Nguyen Van A</p>
-                                    <h6 class="col-5 p-2">Ngày Nhập Viện:</h6><p class="col-7 p-2">Nguyen Van A</p>
-                                    <h6 class="col-5 p-2">Thông Tin người nhà:</h6><p class="col-7 p-2">Nguyen Van A</p>
-                                </div>
+							<h6 class="col-5 p-2">Họ tên:</h6><p class="col-7 p-2">Nguyễn Văn A</p>
+							<h6 class="col-5 p-2">Địa chỉ:</h6><p class="col-7 p-2">Nguyẽn Văn A </p>
+							<h6 class="col-5 p-2">Số điện thoại:</h6><p class="col-7 p-2">Nguyen Van A</p>
+							<h6 class="col-5 p-2">Người Phụ Trách:</h6><p class="col-7 p-2">Nguyen Van A</p>
+							<h6 class="col-5 p-2">Tình Trạng Bệnh</h6><p class="col-7 p-2">Nguyen Van A</p>
+							<h6 class="col-5 p-2">Phòng Bệnh:</h6><p class="col-7 p-2">Nguyen Van A</p>
+							<h6 class="col-5 p-2">Ngày Nhập Viện:</h6><p class="col-7 p-2">Nguyen Van A</p>
+							<h6 class="col-5 p-2">Thông Tin người nhà:</h6><p class="col-7 p-2">Nguyen Van A</p>
+							<!-- Other patient info -->
                                 </div>
                             </div>
-                            
-
                         </div>
                     </div>
                 </div>
-        </section> <!--/ End Contact -->
-        <!-- <script>
-            const heartRateCtx = document.getElementById('myChart').getContext('2d');
-            const spo2Ctx = document.getElementById('spo2Chart').getContext('2d');
-            const heartRateElement = document.getElementById("heartRate");
-            const spo2Element = document.getElementById("spo2");
+            </div>
+    </section>
+    <!--/ End Contact -->
 
-            const heartRateData = {
-                labels: [],
-                datasets: [{
-                    label: 'Heart Rate (bpm)',
-                    data: [],
-                    borderColor: 'rgb(255, 99, 132)',
-                    fill: false,
-                }]
-            };
+    <script>
+        // Khởi tạo WebSocket
+        const ws = new WebSocket('ws://localhost:2222');
+        let lastSignalTime = Date.now(); // Lưu thời gian nhận tín hiệu cuối cùng
+        const TIMEOUT_MS = 100; // Giới hạn thời gian chờ 0.1
     
-            const spo2Data = {
-                labels: [],
-                datasets: [{
-                    label: 'SpO2 (%)',
-                    data: [],
-                    borderColor: 'rgb(54, 162, 235)',
-                    fill: false,
-                }]
-            };
+        ws.onmessage = (event) => {
+            const data = JSON.parse(event.data);
+            document.getElementById("heartRate").textContent = `${data.heartRate} bpm`;
+            document.getElementById("spo2").textContent = `${data.spo2} %`;
     
-            const heartRateChart = new Chart(heartRateCtx, {
-                type: 'line',
-                data: heartRateData,
-                options: { responsive: true }
-            });
+            // Hiển thị cảnh báo nếu heartRate lớn hơn 97
+            const bloodPressureWarning = document.getElementById("bloodPressureWarning");
+            if (data.heartRate > 97) {
+                bloodPressureWarning.style.display = "block";
+                bloodPressureWarning.textContent="Huyết áp cao"
+            } else if(data.heartRate < 60){
+                bloodPressureWarning.style.display = "block";
+                bloodPressureWarning.textContent="Huyết áp thấp"
+            }else{
+                bloodPressureWarning.style.display = "none";
+            }
     
-            const spo2Chart = new Chart(spo2Ctx, {
-                type: 'line',
-                data: spo2Data,
-                options: { responsive: true }
-            });
+            // Cập nhật thời gian nhận tín hiệu cuối cùng
+            lastSignalTime = Date.now();
+            
+            // Cập nhật biểu đồ điện tâm đồ
+            const time = new Date().toLocaleTimeString();
+            updateEKGChart(data.heartRate, time);
+        };
     
-            const ws = new WebSocket('ws://localhost:2222/ws');
-    
-            ws.onmessage = (event) => {
-                const data = JSON.parse(event.data);
-                const time = new Date(data.timestamp).toLocaleTimeString();
-                heartRateElement.textContent = `${data.heartRate} bpm`;
-                spo2Element.textContent = `${data.spo2} %`;
-                if (heartRateData.labels.length > 20) {
-                    heartRateData.labels.shift();
-                    heartRateData.datasets[0].data.shift();
-                    spo2Data.labels.shift();
-                    spo2Data.datasets[0].data.shift();
+        const ctx = document.getElementById('myChart').getContext('2d');
+        const ekgChartData = {
+            labels: [],
+            datasets: [{
+                label: 'EKG Heart Rate',
+                data: [],
+                borderColor: 'rgb(0, 255, 0)', // Màu xanh lá giống điện tâm đồ
+                borderWidth: 2,
+                pointRadius: 0, // Loại bỏ các điểm để làm mượt đường
+                tension: 0.4,   // Độ mượt cho đường
+            }]
+        };
+        const ekgChart = new Chart(ctx, {
+            type: 'line',
+            data: ekgChartData,
+            options: {
+                responsive: true,
+                animation: {
+                    duration: 0 // Loại bỏ độ trễ để cập nhật liên tục
+                },
+                scales: {
+                    x: {
+                        display: false // Ẩn trục x để giống EKG
+                    },
+                    y: {
+                        min: 10, // Điều chỉnh giá trị min và max để phù hợp với nhịp tim
+                        max: 180,
+                        beginAtZero: false,
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)', // Đường kẻ mờ
+                        },
+                        ticks: {
+                            display: false // Ẩn nhãn trục y
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false // Ẩn nhãn để trông giống EKG
+                    }
                 }
+            }
+        });
     
-                heartRateData.labels.push(time);
-                heartRateData.datasets[0].data.push(data.heartRate);
-                spo2Data.labels.push(time);
-                spo2Data.datasets[0].data.push(data.spo2);
+        function updateEKGChart(heartRate, time) {
+            // Giới hạn số điểm hiển thị (khoảng 30 điểm để giống sóng EKG)
+            if (ekgChartData.labels.length > 30) {
+                ekgChartData.labels.shift();
+                ekgChartData.datasets[0].data.shift();
+            }
+            ekgChartData.labels.push(time);
+            ekgChartData.datasets[0].data.push(heartRate);
+            ekgChart.update();
+        }
     
-                heartRateChart.update();
-                spo2Chart.update();
-            };
-        </script> -->
-        <%-include('../common/js.ejs')%>
-            <!-- Jquery -->
+        function addCenterLine() {
+            const centerValue = 85; // Giá trị trung bình của trục y
+            const time = new Date().toLocaleTimeString();
+            updateEKGChart(centerValue, time);
+        }
+    
+        // Kiểm tra thời gian từ lần nhận tín hiệu cuối
+        setInterval(() => {
+            if (Date.now() - lastSignalTime > TIMEOUT_MS) {
+                addCenterLine(); // Không có tín hiệu, đưa về đường thẳng giữa
+            }
+        }, 1000); // Kiểm tra mỗi giây
+    </script>
+            <%- include('../common/js.ejs') %>
 </body>
 
 </html>
